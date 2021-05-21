@@ -2,20 +2,20 @@
 <html>
 
 <head>
-    <title>Регистрация</title>
+    <title>Test page</title>
     <meta charset="utf-8" />
 </head>
 
 <body>
-    <h1>Введите данные</h1>
-    <form action="/send" method="post">
+    <h1>Input data</h1>
+    <form action="http://172.17.0.2:3000/send" method="post">
         <label>Ref</label><br>
         <input type="text" name="ref" /><br><br>
         <label>Selected</label><br>
         <input type="text" name="selected" /><br><br>
         <label>Comment</label><br>
         <input type="text" name="comment" /><br><br>
-        <input type="submit" value="Отправить" />
+        <input type="submit" value="Send" />
     </form>
 </body>
 

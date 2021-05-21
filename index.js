@@ -1,10 +1,14 @@
 require("dotenv").config();
 const axios = require("axios");
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({ origin: process.env.FRONTEND_URL.split(" "), credentials: true })
+);
 
 const nl2br = (str) => {
   if (typeof str === "undefined" || str === null) {
