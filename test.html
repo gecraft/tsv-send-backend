@@ -7,14 +7,29 @@
 </head>
 
 <body>
-    <h1>Input data</h1>
-    <form action="http://172.17.0.2:3000/send" method="post">
+    <h1>Save to error.tsv</h1>
+    <form action="/send" method="post">
         <label>Ref</label><br>
         <input type="text" name="ref" /><br><br>
         <label>Selected</label><br>
         <input type="text" name="selected" /><br><br>
         <label>Comment</label><br>
         <input type="text" name="comment" /><br><br>
+        <input type="submit" value="Send" />
+    </form>
+
+    <h1>Save to custom file</h1>
+    <form action="/send-to-file" method="post">
+        <label>Type of resource</label><br>
+        <input type="text" name="type" placeholder="rsob" /><br><br>
+        <label>BookId</label><br>
+        <input type="text" name="bookId" placeholder="tit" /><br><br>
+        <label>Ref</label><br>
+        <input type="text" name="ref" placeholder="1:1" /><br><br>
+        <label>Selected</label><br>
+        <input type="text" name="selected" placeholder="text" /><br><br>
+        <label>Comment</label><br>
+        <input type="text" name="comment" placeholder="comment" /><br><br>
         <input type="submit" value="Send" />
     </form>
 </body>
