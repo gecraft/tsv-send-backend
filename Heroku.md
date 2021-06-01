@@ -1,5 +1,3 @@
-# tsv-send-backend
-
 ## Heroku deploy
 
 ### Install the Heroku CLI
