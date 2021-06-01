@@ -7,31 +7,39 @@
 </head>
 
 <body>
-    <h1>Save to error.tsv</h1>
-    <form action="/send" method="post">
-        <label>Ref</label><br>
-        <input type="text" name="ref" /><br><br>
-        <label>Selected</label><br>
-        <input type="text" name="selected" /><br><br>
-        <label>Comment</label><br>
-        <input type="text" name="comment" /><br><br>
-        <input type="submit" value="Send" />
-    </form>
-
     <h1>Save to custom file</h1>
-    <form action="/send-to-file" method="post">
-        <label>Type of resource</label><br>
-        <input type="text" name="type" placeholder="rsob" /><br><br>
-        <label>BookId</label><br>
-        <input type="text" name="bookId" placeholder="tit" /><br><br>
-        <label>Ref</label><br>
-        <input type="text" name="ref" placeholder="1:1" /><br><br>
-        <label>Selected</label><br>
-        <input type="text" name="selected" placeholder="text" /><br><br>
-        <label>Comment</label><br>
-        <input type="text" name="comment" placeholder="comment" /><br><br>
-        <input type="submit" value="Send" />
-    </form>
+    <label>Resource</label><br>
+    <input type="text" name="resource" id="resource" placeholder="rsob" value="rsob" /><br><br>
+    <label>Type (err, tn, tq, etc.)</label><br>
+    <input type="text" name="type" id="type" placeholder="err" value="err" /><br><br>
+    <label>BookId</label><br>
+    <input type="text" name="bookId" id="bookId" placeholder="tit" value="tit" /><br><br>
+    <label>Reference</label><br>
+    <input type="text" name="reference" id="reference" placeholder="1:1" value="1:1" /><br><br>
+    <label>Fields (Object, use "")</label><br>
+    <textarea name="fields" id="fields" cols="30" rows="10" placeholder='{ "Name": "value"}'>{ "Quote" : "new", "Note" : "test" }</textarea><br>
+    <button id="send">Send</button>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      document.querySelector("#send").addEventListener("click", () => {
+        axios
+          .post('/send', {
+            type: document.getElementById("type").value,
+            resource: document.getElementById("resource").value,
+            bookId: document.getElementById("bookId").value,
+            reference: document.getElementById("reference").value,
+            fields: JSON.parse(document.getElementById("fields").value),
+          })
+          .then((res) => {
+            alert(JSON.stringify({ status: true, res: res.data }));
+            return true;
+          })
+          .catch((error) => {
+            alert(JSON.stringify({ status: false, error: error }));
+            return false;
+          });
+      })
+    </script>
 </body>
 
 </html>
