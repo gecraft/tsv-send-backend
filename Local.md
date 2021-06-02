@@ -1,5 +1,7 @@
 # Local development
 
+## With Docker
+
 1. Install [Docker](https://docs.docker.com/get-docker/) on your local machine.
 2. Clone the repository and [configure it](./Dotenv.md) to work.
 3. In Dockerfile uncomment line `#EXPOSE 3000`
@@ -37,3 +39,10 @@ Example
 **"IPv4Address": "172.17.0.2/16"**
 
 Open in browser `http://172.17.0.2:3000`
+
+## Without Docker
+
+1. Clone the repository and [configure it](./Dotenv.md) to work.
+2. Install dependencies.`$ npm install`
+3. Start the server with the command `$ npm run watch`
+4. Now your server is located at `http://localhost:3000`
