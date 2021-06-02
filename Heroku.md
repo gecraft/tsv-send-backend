@@ -25,7 +25,7 @@ $ heroku container:login
 
 Clone this repo and navigate to the app’s directory.
 
-After cloning the repository, you need to create a copy of the `.env.example` file, rename it to `.env` and configure. 
+After cloning the repository, you need to create a copy of the `.env.example` file, rename it to `.env` and configure.
 
 ```
 $ git clone https://github.com/texttree/tsv-send-backend.git
@@ -45,6 +45,7 @@ https://<app-name>.herokuapp.com/ | https://git.heroku.com/<app-name>.git
 Build the Dockerfile in the current directory and push the Docker image.
 
 ```
+$ docker duild -t tsv-backend .
 $ heroku container:push web -a <app-name>
 ```
 
@@ -53,7 +54,7 @@ $ heroku container:push web -a <app-name>
 Set environment variables from `.env`
 
 ```
-$ heroku config:set OWNER=<owner> REPO=<repo> TOKEN=<token> FRONTEND_URL=<url> CREATE_FILES=TRUE -a <app-name>
+$ heroku config:set OWNER=<owner> REPO=<repo> TOKEN=<token> FRONTEND_URL=<url> CREATE_FILES=TRUE HIDE_TEST_PAGE=FALSE -a <app-name>
 ```
 
 ### Deploy the changes
