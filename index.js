@@ -23,9 +23,11 @@ app.use(
   cors({ origin: process.env.FRONTEND_URL.split(' '), credentials: true })
 );
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/test.html');
-});
+if (process.env.HIDE_TEST_PAGE === 'FALSE') {
+  app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/test.html');
+  });
+}
 
 app.post('/send', function (req, appResponse) {
   const { resource, bookId, reference, type, fields } = req.body;
