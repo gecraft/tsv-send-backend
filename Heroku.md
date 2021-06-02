@@ -48,13 +48,6 @@ Build the Dockerfile in the current directory and push the Docker image.
 $ heroku container:push web -a <app-name>
 ```
 
-### Deploy the changes
-
-Release the newly pushed images to deploy your app.
-```
-$ heroku container:release web -a <app-name>
-```
-
 ### Add .env variable
 
 Set environment variables from `.env`
@@ -62,6 +55,14 @@ Set environment variables from `.env`
 ```
 $ heroku config:set OWNER=<owner> REPO=<repo> TOKEN=<token> FRONTEND_URL=<url> CREATE_FILES=TRUE -a <app-name>
 ```
+
+### Deploy the changes
+
+Release the newly pushed images to deploy your app.
+```
+$ heroku container:release web -a <app-name>
+```
+
 ### Done
 
 Now open the app in your browser
