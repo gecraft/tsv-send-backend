@@ -31,7 +31,7 @@ if (process.env.HIDE_TEST_PAGE === 'FALSE') {
 
 app.post('/send', function (req, appResponse) {
   const { resource, bookId, reference, type, fields } = req.body;
-  if (!resource || !bookId || !reference || !type || !fields || Object.keys(obj).length === 0) {
+  if (!resource || !bookId || !reference || !type || !fields || Object.keys(fields).length === 0) {
     appResponse.send({
       ...response,
       code: 105,
