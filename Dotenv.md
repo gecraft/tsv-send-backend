@@ -1,6 +1,6 @@
 After you've cloned the repository, you need to make some adjustments.
 
-1. Create a copy of the dotenv file and rename it to env.
+1. Create a copy of the `.env.example` file and rename it to `.env`.
 
 2. https://git.door43.org/repo/create create a new repository.
 

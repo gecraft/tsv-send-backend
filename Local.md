@@ -3,7 +3,8 @@
 1. Install [Docker](https://docs.docker.com/get-docker/) on your local machine.
 2. Clone the repository and [configure it](./Dotenv.md) to work.
 3. In Dockerfile uncomment line `#EXPOSE 3000`
-4. Run `$ docker build -t tsv-backend . `
+4. Run `$ docker build -t tsv-backend . ` you create image with tag name `tsv-backend`
+4. Run `$ docker run tsv-backend` you start your image container
 5. Run `$ docker network ls`
 
 Something like this should turn out
@@ -12,14 +13,14 @@ NETWORK ID   | NAME    | DRIVER | SCOPE
 ------------ | ------- | ------ | -----
 3118f59e223b | host    | host   | local
 795681ea1a48 | bridge  | bridge | local
-0f8c666bd6a6 | none    | null   | local 
+0f8c666bd6a6 | none    | null   | local
 
-Get NETWORK ID for bridge and run
+Get `NETWORK ID` for bridge and run
 ```
 $ docker network inspect 795681ea1a48
 ```
 
-Find the Containers block and get ip address.
+Find the `Containers` block and get ip address.
 
 Example
 ```
