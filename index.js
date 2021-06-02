@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/test.html');
 });
 
-app.post('/send', function (req, responseGet) {
+app.post('/send', function (req, appResponse) {
   const { resource, bookId, reference, type, fields } = req.body;
   const url =
     'https://git.door43.org/api/v1/repos/' +
@@ -46,27 +46,26 @@ app.post('/send', function (req, responseGet) {
     .get(url)
     .then((res) => {
       if (res.status != 200) {
-        responseGet.send({
+        appResponse.send({
           ...response,
           code: 101,
           message: 'Status ' + res.status,
         });
-        return false;
       }
       // получить первую строку, создать массив из колонок
       // после этого проверить, есть ли все эти колонки в объекте fields
       const buff = Buffer.from(res.data.content, 'base64');
       const columns = buff.toString('utf8').split('\n')[0].split('\t').slice(3);
-      columns.forEach((el) => {
+      for (const el of columns) {
         if (!fields[el]) {
-          responseGet.send({
+          appResponse.send({
             ...response,
             code: 102,
             message: 'Fields not contain ' + el,
           });
           return false;
         }
-      });
+      };
       const sha = res.data.sha;
       let text =
         buff.toString('utf8') + '\n' + reference + '\t' + nanoid() + '\t';
@@ -81,22 +80,20 @@ app.post('/send', function (req, responseGet) {
           sha: sha,
         })
         .then((res) => {
-          responseGet.send({
+          appResponse.send({
             ...response,
             success: true,
             code: 200,
             message: 'Success',
           });
-          return true;
         })
         .catch((error) => {
-          responseGet.send({
+          appResponse.send({
             ...response,
             code: 103,
             message: 'Error when save data',
             errors: error,
           });
-          return false;
         });
     })
     .catch((error) => {
@@ -123,26 +120,25 @@ app.post('/send', function (req, responseGet) {
             content: Buffer.from(text + '\n', 'utf8').toString('base64'),
           })
           .then((res) => {
-            responseGet.send({
+            appResponse.send({
               ...response,
               success: true,
               code: 200,
               message: 'Success',
             });
-            return true;
           })
           .catch((error) => {
-            responseGet.send({ status: false, error: error });
-            return false;
+            appResponse.send({ status: false, error: error });
           });
       } else {
-        responseGet.send({
+        //console.log(appResponse.getHeaders(), error);
+        //return false;
+        appResponse.send({
           ...response,
           code: 104,
           message: 'Error when get data',
           errors: error?.response,
         });
-        return false;
       }
     });
 });
