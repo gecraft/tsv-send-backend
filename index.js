@@ -12,11 +12,10 @@ const nanoid = customAlphabet(
   4
 );
 const response = {
-  success: false, // true or false
-  code: 999, // нужно в документации все варианты кодов ошибок указать
-  message: 'Undefined error', // текстовый вариант сообщения
-  errors: {},
-  /** Ошибки */
+  success: false,
+  code: 999,
+  message: 'Undefined error',
+  errors: {}
 };
 app.use(express.json());
 app.use(
@@ -31,7 +30,14 @@ if (process.env.HIDE_TEST_PAGE === 'FALSE') {
 
 app.post('/send', function (req, appResponse) {
   const { resource, bookId, reference, type, fields } = req.body;
-  if (!resource || !bookId || !reference || !type || !fields || Object.keys(fields).length === 0) {
+  if (
+    !resource ||
+    !bookId ||
+    !reference ||
+    !type ||
+    !fields ||
+    Object.keys(fields).length === 0
+  ) {
     appResponse.send({
       ...response,
       code: 105,
@@ -61,9 +67,8 @@ app.post('/send', function (req, appResponse) {
           message: 'Status ' + res.status,
         });
       }
-      // получить первую строку, создать массив из колонок
-      // после этого проверить, есть ли все эти колонки в объекте fields
       const buff = Buffer.from(res.data.content, 'base64');
+      // get 1st line, parse columns, check fields
       const columns = buff.toString('utf8').split('\n')[0].split('\t').slice(3);
       for (const el of columns) {
         if (!fields[el]) {
@@ -74,11 +79,9 @@ app.post('/send', function (req, appResponse) {
           });
           return false;
         }
-      };
+      }
       const sha = res.data.sha;
-      let text =
-        buff.toString('utf8') + '\n' + reference + '\t' + nanoid() + '\t';
-      // если все ок то допишем в конец файла и обновим файл в гите
+      let text = buff.toString('utf8') + reference + '\t' + nanoid() + '\t';
       columns.forEach((element) => {
         text += '\t' + helper.nl2br(fields[element]);
       });
@@ -154,4 +157,4 @@ app.post('/send', function (req, appResponse) {
 
 // разбить файл на более мелкие части
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 4000);
