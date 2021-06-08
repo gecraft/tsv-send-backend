@@ -4,7 +4,7 @@
 
 1. Install [Docker](https://docs.docker.com/get-docker/) on your local machine.
 2. Clone the repository and [configure it](./Dotenv.md) to work.
-3. In Dockerfile uncomment line `#EXPOSE 3000`
+3. In Dockerfile uncomment line `#EXPOSE 4000`
 4. Run `$ docker build -t tsv-backend . ` you create image with tag name `tsv-backend`
 4. Run `$ docker run tsv-backend` you start your image container
 5. Run `$ docker network ls`
@@ -38,11 +38,11 @@ Example
 ```
 **"IPv4Address": "172.17.0.2/16"**
 
-Open in browser `http://172.17.0.2:3000`
+Open in browser `http://172.17.0.2:4000`
 
 ## Without Docker
 
 1. Clone the repository and [configure it](./Dotenv.md) to work.
 2. Install dependencies.`$ npm install`
 3. Start the server with the command `$ npm run watch`
-4. Now your server is located at `http://localhost:3000`
+4. Now your server is located at `http://localhost:4000`
