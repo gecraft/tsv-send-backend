@@ -2,7 +2,7 @@
 
 This is the server side of the component responsible for sending data to the git.door43.org.
 
-This component works together with [tsv-frontend](https://github.com/texttree/tsv-frontend).
+This component works together with [user-notes-rcl](https://github.com/texttree/user-notes-rcl).
 
 [Deploy to Heroku](./Heroku.md)
 
