@@ -15,6 +15,7 @@ const response = {
   success: false,
   code: 999,
   message: 'Undefined error',
+  file: null,
   errors: {}
 };
 app.use(express.json());
@@ -44,6 +45,20 @@ app.post('/send', function (req, appResponse) {
       message: 'Some of fields not set',
     });
   }
+
+  response.file =
+    "https://git.door43.org/" +
+    process.env.OWNER +
+    "/" +
+    process.env.REPO +
+    "/src/branch/master/" +
+    resource +
+    "/" +
+    String(type).toLowerCase() +
+    "_" +
+    String(bookId).toUpperCase() +
+    ".tsv";
+
   const url =
     'https://git.door43.org/api/v1/repos/' +
     process.env.OWNER +
