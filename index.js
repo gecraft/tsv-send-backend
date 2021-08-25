@@ -58,7 +58,6 @@ app.post('/send', function (req, appResponse) {
     process.env.REPO +
     "/src/branch/master/" +
     file_location;
-    
 
   const url =
     'https://git.door43.org/api/v1/repos/' +
