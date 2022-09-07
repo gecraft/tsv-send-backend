@@ -94,7 +94,7 @@ app.post('/send', function (req, appResponse) {
       const sha = res.data.sha;
       let text = buff.toString('utf8') + reference + '\t' + nanoid() + '\t';
       columns.forEach((element) => {
-        text += '\t' + helper.nl2br(fields[element]);
+        text += '\t' + helper.tab2space(helper.quote2entity(helper.nl2br(fields[element])));
       });
 
       axios
