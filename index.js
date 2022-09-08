@@ -32,7 +32,6 @@ if (process.env.HIDE_TEST_PAGE === 'FALSE') {
 app.post('/send', function (req, appResponse) {
   const { resource, bookId, reference, type, fields } = req.body;
   if (
-    !resource ||
     !bookId ||
     !reference ||
     !type ||
@@ -46,18 +45,19 @@ app.post('/send', function (req, appResponse) {
     });
   }
 
+  const file_location = ( resource ? resource + '/' : '') +
+  String(type).toLowerCase() +
+  "_" +
+  String(bookId).toUpperCase() +
+  ".tsv";
+
   response.file =
     "https://git.door43.org/" +
     process.env.OWNER +
     "/" +
     process.env.REPO +
     "/src/branch/master/" +
-    resource +
-    "/" +
-    String(type).toLowerCase() +
-    "_" +
-    String(bookId).toUpperCase() +
-    ".tsv";
+    file_location;
 
   const url =
     'https://git.door43.org/api/v1/repos/' +
@@ -65,12 +65,8 @@ app.post('/send', function (req, appResponse) {
     '/' +
     process.env.REPO +
     '/contents/' +
-    resource +
-    '/' +
-    String(type).toLowerCase() +
-    '_' +
-    String(bookId).toUpperCase() +
-    '.tsv?access_token=' +
+    file_location +
+    '?access_token=' +
     process.env.TOKEN;
   axios
     .get(url)
@@ -98,7 +94,7 @@ app.post('/send', function (req, appResponse) {
       const sha = res.data.sha;
       let text = buff.toString('utf8') + reference + '\t' + nanoid() + '\t';
       columns.forEach((element) => {
-        text += '\t' + helper.nl2br(fields[element]);
+        text += '\t' + helper.tab2space(helper.quote2entity(helper.nl2br(fields[element])));
       });
 
       axios
